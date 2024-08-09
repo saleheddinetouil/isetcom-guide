@@ -20,7 +20,7 @@ generation_config = {
     "temperature": 0.7,  # Adjust temperature for more focused responses
     "top_p": 0.95,
     "top_k": 40,
-    "max_output_tokens": 512,  # Adjust as needed
+    "max_output_tokens": 4096,  # Adjust as needed
     "response_mime_type": "text/plain",
 }
 
