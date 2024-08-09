@@ -33,33 +33,11 @@ model = genai.GenerativeModel(
 # Initialize chat history
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
-    {
+     {
       "role": "user",
       "parts": [
         "Vous etes un chat bot de guide des nouveaux etudiants , faq , ... ",
-      ],
-    },
-    {
-      "role": "model",
-      "parts": [
-        "Bonjour ! Je suis un chatbot conçu pour aider les nouveaux étudiants à se familiariser avec leur parcours universitaire.\n\nD'après les documents que vous avez fournis, je vois que vous êtes Salima et que vous allez commencer une Licence en Réseaux et Systèmes des Télécommunications, n'est-ce pas ? Félicitations pour votre admission ! \n\nJe peux vous fournir des informations sur :\n\n* **Les unités d'enseignement (UE) et les éléments constitutifs (EE) de chaque semestre :**  Je peux vous détailler les cours qui vous seront proposés, leurs coefficients et le volume horaire de chacun. Par exemple, au semestre 4, l'UE \"Systèmes d'accès télécoms\" (code 576102410) comprend deux EEs : \"Les réseaux d'accès sans fil\" et \"Atelier réseaux d'accès\".\n* **Les différents types d'enseignements :** Cours magistraux (Cours), Travaux Dirigés (TD), Travaux Pratiques (TP) ...\n* **Les modalités d'évaluation :** Contrôle continu (CC) \n* **Les abréviations utilisées :**  Nat (Nature de l'UE : Fondamentale, Transversale...), Cr (crédits), Coef (coefficient), Rg (régime d'examen).\n\n\nN'hésitez pas à me poser des questions plus précises. Par exemple :\n\n* \"Quels sont les cours que j'aurai au semestre 5 ?\"\n* \"Quel est le coefficient de l'UE 'Objets connectés et IoT' ?\"\n* \"Que signifie 'C.Int' dans le tableau ?\"\n\nPlus vous êtes précis dans vos questions, plus je pourrai vous fournir des réponses utiles et pertinentes. \n\nJ'ai également accès aux informations concernant la Licence en Sécurité des Réseaux et la Licence Tronc Commun. Si vous avez des questions à propos de ces parcours, n'hésitez pas à me les poser.\n\nJe suis là pour vous aider à démarrer votre parcours universitaire du bon pied !\n",
-      ],
-    },
-    {
-      "role": "user",
-      "parts": [
         "Bienvenue aux nouveaux étudiants de l'ISETCOM.\nNous sommes impatients de vous voir commencer cette nouvelle aventure académique avec nous.\n\nLes scores sont des derniers etudiant de differents bacs info , maths , sciences , technique qui ont ete acceptee a liset Com ",
-      ],
-    },
-    {
-      "role": "model",
-      "parts": [
-        "Ah, je comprends mieux !  Il s'agit des scores du concours d'entrée à l'ISETCOM pour l'année 2024.  \n\nCe document montre les scores minimums requis pour être admis à l'ISETCOM, par filière du baccalauréat. \n\nPar exemple :\n\n* **Pour les étudiants ayant un baccalauréat en Sciences Expérimentales (علوم تجريبية) :**  Le score minimum pour être admis à la filière \"Sciences et Technologies de l'Information et de la Communication\" (code 10360) était de 144.38. \n* **Pour les étudiants ayant un baccalauréat en Mathématiques (رياضيات) :** Le score minimum pour être admis à la filière \"Sciences et Technologies de l'Information et de la Communication\" (code 10360) était de 156.47.\n\nCe document est très utile pour les nouveaux bacheliers qui souhaitent intégrer l'ISETCOM. Il leur permet de se situer et d'évaluer leurs chances d'admission.\n\nAvez-vous des questions sur ces scores d'admission ? Par exemple, souhaitez-vous savoir quel était le score minimum pour une filière en particulier ?  Ou bien voulez-vous connaître le score moyen d'admission pour une filière donnée ?\n",
-      ],
-    },
-    {
-      "role": "user",
-      "parts": [
         "L'établissement en chiffres\n600\nEtudiants\n85%\nTaux de réussite\n26\nAns d'expérience\n3\nSpécialités\n\n",
       ],
     },
@@ -121,12 +99,7 @@ if "chat_history" not in st.session_state:
       "role": "user",
       "parts": [
         "Formulaire-Guide Mastère version du 25/08/2021 5Semestre 1\nN° Unité d'enseignement\n(UE)\nType de l'UE\n(Obligatoire /\nOptionnelle)\nElément constitutif\nd'UE (ECUE)\nVolume des heures de formation\nprésentielles\n(14 semaines)\nNombre de\nCrédits\naccordés\nCoefficientsModalité Cours TD TP Autres ECUE UE ECUEUECC MixteSécurité des\nsystèmes\némergents 1\nObligatoir\ne\nAnalyse et\ngestion des\nrisques\n7 7 21 3\n6\n1.53X Initiation à la\nsécurité 14 7 21 3 1.5 X 2 Management\nDigital 1\nObligatoir\ne\nTransformation\ndigitale 7 7 21 3\n6\n1.53X Management\ndes projets SI 1 7 7 21 3 1.5 X 3\nSystèmes\nCommuniquants\npour la récolte\nde données\nObligatoir\ne\n5G 14 7 0 3\n7\n1.53.5X IoT et services 14 7 21 4 2 X Analyse et\nProcessing des\nSystèmes\nemergents\nObligatoir\ne\nOptimisation et\nrecherche\nopérationnelle\n14 7 0 3\n7\n1.53.5X Analyse des\ndonnées 14 7 21 4 2 X Développement\ndes\ncompétences 1\nTransvers\nale\nBusiness english 0 0 21 2\n4\n12X Protection des\ndonnées\npersonnelles et\nde l'innovation\n10,5 10,5 0 2 1 XTotal 30 30 1515\nFormulaire-Guide Mastère version du 25/08/2021 6Semestre 2\nN° Unité d'enseignement\n(UE)\nType de l'UE\n(Obligatoire /\nOptionnelle)\nElément constitutif\nd'UE (ECUE)\nVolume des heures de formation\nprésentielles\n(14 semaines)\nNombre de\nCrédits\naccordés\nCoefficientsModalité Cours TD TP Autres ECUE UE ECUEUECC MixteSécurité des\nsystèmes\némergents 2\nObligatoire\nAudit et test de\npénétration 14.00 7.00 21.00 0.00 2\n5\n12.5X Préparation à la\ncertification CEH 14.00 0.00 21.00 0.00 3 1.5 X 2 Management\nDigital 2 Obligatoire\nGouvernance des\nsystèmes\nd'information 14 7 21 0\n3\n6\n1.753.5X Management\ndes Systèmes\nd'Information 2 14 7 21 0\n3 1.75 X 3\nIntelligence et\nCloud1 Obligatoire\nCloud 1 14 7 10,5 0\n3\n6\n1.53X Intelligence\nArtificielle1 14 7 10,5 0\n3 1.5 X Analyse et\nProcessing des\nSystèmes\némergents 2\nObligatoire\nPlateformes et\nsystèmes\nrépartis pour le\nBig Data 14 7 0 0\n3\n5\n1.52.5X Atelier Apache\nHadoop et Spark 0 0 21 0\n2 1XDéveloppement\ndes compétences\n2\nTransversal\ne\nBusiness &\nTechnology\nenglish 2 0 0 21 0\n2\n4\n12X Développement\npersonnel 10,5 10,5 0 0\n2 1 X6\nSéminaire : Veille\ntechnologique\nOptionnell\ne Séminaire 0 0 0 14\n4 4 22X Total 30 30 1515\nFormulaire-Guide Mastère version du 25/08/2021 7Semestre 3\nN° Unité d'enseignement\n(UE)\nType de l'UE\n(Obligatoire /\nOptionnelle)\nElément constitutif\nd'UE (ECUE)\nVolume des heures de formation\nprésentielles\n(14 semaines)\nNombre de\nCrédits\naccordés\nCoefficientsModalité Cours TD TP Autres ECUE UE ECUEUECC MixteSécurité des\nsystèmes\némergents 3\nObligatoire\nPréparation à la\ncertification\nCCNA CyberOps\n14 0 21 0\n3\n6\n1.53X Investigation\nNumérique\n14 7 0 0\n3 1.5 X 2 Management\nDigital 3 Obligatoire\nManagement\ndes projets SI 3:\nMéthodologie\nAgile 14 7 21 0\n3\n6\n1.53X Marketing Digital 14 7 21 0\n3 1.5 X 3\nIntelligence et\nCloud2 Obligatoire\nIntelligence\nArtificielle 2 14 7 14 0\n3\n6\n1.53X Cloud 2 14 7 10,5 0\n3 1.5 X Analyse et\nProcessing des\nSystèmes\nEmergents 3\nObligatoire\nAtelier\ninformatique\ndécisionnelle 0 0 21 0\n2\n4\n12XInformatique\ndécisionnelle 14 7 0 0\n2 1 X Développement\ndes compétences\n3\nTransversal\ne\nAtelier\nEntreprenariat 0 0 21 0\n2\n4\n12X Préparation TCF 0 0 21 0\n2 1X 6 Méthodologie de\nrecherche\nFondament\nale\nProjet tutoré 0 0 21 0 2\n4\n12X Méthodes de\nrecherche 0 0 21 0\n2 1 xTotal 30 30 1515Semestre 4\nN° Unité d'enseignement\n(UE)\nType de l'UE\n(Obligatoire /\nOptionnelle)\nElément constitutif\nd'UE (ECUE)\nVolume des heures de formation\nprésentielles\n(14 semaines)\nNombre de\nCrédits\naccordés\nCoefficientsModalité Cours TD TP Autres ECUE UE ECUEUECC MixteActivité pratique Obligatoire\nM. de Recherche :\nMémoire de\nRecherche ou M. Professionnel :\nMémoire de Stage de\nprojet professionnel\ntutoré, étude de cas\net sa simulation ou\n)\n 30 30 30 1515 Total 30 30 30 1515",
-      ],
-    },
-    {
-      "role": "model",
-      "parts": [
-        "Il semble que vous ayez fourni le plan d'études d'un Master en Sécurité des Systèmes Emergents.  C'est une formation qui s'inscrit dans la continuité de la Licence en Sécurité des Réseaux.\n\nJe vois que ce Master est organisé en 4 semestres avec une forte composante en sécurité, management digital,  intelligence artificielle, cloud computing et analyse de données.  \n\nLe dernier semestre est dédié à une activité pratique qui peut prendre la forme d'un mémoire de recherche, d'un mémoire de stage ou d'une étude de cas.\n\nJe peux vous aider à mieux comprendre ce programme. N'hésitez pas à me poser des questions, par exemple :\n\n* **Quel est le volume horaire total du Master ?**\n* **Quelles sont les conditions d'admission à ce Master ?**\n* **Quels sont les débouchés professionnels après ce Master ?**\n* **Y a-t-il des UEs optionnelles dans ce Master ?** (Oui, comme le \"Séminaire : Veille technologique\" au semestre 2)\n* **En quoi consiste la \"Préparation à la certification CEH\" au semestre 2 ?**\n* **Quel est l'objectif de l'UE \"Développement des compétences\" ?**\n* **Que signifie \"M. de Recherche\" et \"M. Professionnel\" au semestre 4 ?**\n\n\nJe suis à votre disposition pour vous donner plus de détails sur chaque aspect de ce Master.\n\n\n",
+        "SR et RST sont 2 specialites dans la licence STIC et GTIC n'on pas de specialite ok ?\n",
       ],
     },
   ]
