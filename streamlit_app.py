@@ -41,7 +41,8 @@ questions = [
     "Quels sont les débouchés professionnels après l'obtention du diplôme?",
     "Y a-t-il des clubs étudiants ou des activités parascolaires?",
     "L'ISET'Com propose-t-elle des programmes d'échange international?",
-    "Comment puis-je contacter le service des admissions?"
+    "Comment puis-je contacter le service des admissions?",
+    "Quels sont les scores des derniers étudiants admis à l'ISET'Com?" # New question
 ]
 
 # Initialize chat history
