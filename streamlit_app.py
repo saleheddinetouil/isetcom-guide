@@ -134,6 +134,7 @@ if "chat_history" not in st.session_state:
 st.title("🎓 University Guide Chatbot 🤖")
 st.write("Ask questions about your institute and get helpful answers!")
 
+
 # Display chat history
 for message in st.session_state.chat_history:
     if message["role"] == "user":
@@ -151,9 +152,14 @@ for message in st.session_state.chat_history:
 
 # User input
 user_input = st.chat_input("Ask a question:")
+
+# Variable to hold the ongoing user input
+ongoing_input = ""
+
 if user_input:
-    # Add user message to chat history
-    st.session_state.chat_history.append({"role": "user", "parts": [user_input]})
+    ongoing_input = user_input  # Store the current input
+
+    # ***Don't add user message to chat history yet***
 
     # Generate chatbot response using Gemini
     prompt = []
@@ -163,12 +169,24 @@ if user_input:
                 prompt.append(f"{message['role']}: {part}")
             elif isinstance(part, genai.File):
                 prompt.append(f"{message['role']}: <file:{part.uri}>")
-    prompt = "\n".join(prompt)
+    prompt = "\n".join(prompt) + f"\nuser: {ongoing_input}"  # Add ongoing input to the prompt
     response = model.generate_content(prompt)
 
-    # Add chatbot response to chat history
+    # ***Now add user message and response to chat history***
+    st.session_state.chat_history.append({"role": "user", "parts": [ongoing_input]})
     st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
 
-    # Display chatbot response
-    with st.chat_message("assistant"):
-        st.write(response.text)
+    # Display chat history (including the new messages)
+    for message in st.session_state.chat_history:
+        if message["role"] == "user":
+            with st.chat_message("user"):
+                for part in message["parts"]:
+                    if isinstance(part, str):
+                        st.write(part)
+                    elif isinstance(part, genai.File):
+                        st.write(f"File: {part.display_name}")
+        else:
+            with st.chat_message("assistant"):
+                for part in message["parts"]:
+                    if isinstance(part, str):
+                        st.write(part)
