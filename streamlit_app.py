@@ -38,7 +38,7 @@ if "chat_history" not in st.session_state:
       "parts": [
         "Vous etes un chat bot de guide des nouveaux etudiants , faq , ... ",
         "Bienvenue aux nouveaux étudiants de l'ISETCOM.\nNous sommes impatients de vous voir commencer cette nouvelle aventure académique avec nous.\n\nLes scores sont des derniers etudiant de differents bacs info , maths , sciences , technique qui ont ete acceptee a liset Com ",
-        "L'établissement en chiffres\n600\nEtudiants\n85%\nTaux de réussite\n26\nAns d'expérience\n3\nSpécialités\n\n",
+        "L'établissement en chiffres\n600\nEtudiants\n85%\nTaux de réussite\n26\nAns d'expérience\n3\nSpécialités\nSe trouve a Technopole El Ghazela Tunis , siteweb: https://isetcom.tn/\n",
       ],
     },
     {
