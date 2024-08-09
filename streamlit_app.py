@@ -110,7 +110,10 @@ st.write("Ask questions about your institute and get helpful answers!")
 
 
 # Display chat history
+i = 0
 for message in st.session_state.chat_history:
+  i+=1
+  if i == 12:  
     if message["role"] == "user":
         with st.chat_message("user"):
             for part in message["parts"]:
