@@ -60,8 +60,14 @@ if "chat_history" not in st.session_state:
         "role": "user",
         "parts": [
             "Quels sont les scores des derniers étudiants admis à l'ISET'Com?",
-            "https://ibb.co/pJD5314" # Add the image URL
+            
         ],
+    },
+         {
+      "role": "model",
+      "parts": [
+        "https://ibb.co/pJD5314" # Add the image URL
+      ],
     },
     {
       "role": "model",
