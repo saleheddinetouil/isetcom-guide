@@ -52,12 +52,12 @@ def wait_for_files_active(files):
 
 # Specify the paths to your local files
 file_paths = [
-    r"data/Plan_d_etude_RST_semestres_4_5_et_6_.pdf",
-    r"data/Plan_d_etude_SR_semestres_4_5_et_6_.pdf",
-    r"data/Plan_d_etude_STIC_semestres_1_2_et_3_.pdf",
-    r"data/Plan_d_etude_MASTER.pdf",
-    r"data/Plan_d_etude_GTIC.pdf",
-    r"data/last-scores.jpg"
+    "data//Plan_d_etude_RST_semestres_4_5_et_6_.pdf",
+    "data//Plan_d_etude_SR_semestres_4_5_et_6_.pdf",
+    "data//Plan_d_etude_STIC_semestres_1_2_et_3_.pdf",
+    "data//Plan_d_etude_MASTER.pdf",
+    "data//Plan_d_etude_GTIC.pdf",
+    "data//last-scores.jpg"
     # Add other file paths as needed
 ]
 
