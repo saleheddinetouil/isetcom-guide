@@ -3,7 +3,7 @@ import os
 import google.generativeai as genai
 
 # Set page config for a wider layout
-st.set_page_config(page_title="University Guide Chatbot", page_icon="🎓", layout="wide")
+st.set_page_config(page_title="Iset'Com Guide Chatbot", page_icon="🎓", layout="wide")
 
 # Get API key from environment variable
 api_key = os.getenv("API")
