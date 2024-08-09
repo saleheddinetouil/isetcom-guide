@@ -31,6 +31,7 @@ model = genai.GenerativeModel(
 
 def upload_to_gemini(path, mime_type=None):
     """Uploads the given file to Gemini."""
+    print(f"Path: {path}")  # Added for debugging
     with open(path, "rb") as f:
         file = genai.upload_file(f, mime_type=mime_type)
     print(f"Uploaded file '{file.display_name}' as: {file.uri}")
