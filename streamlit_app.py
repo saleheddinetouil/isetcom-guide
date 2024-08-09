@@ -55,6 +55,13 @@ if "chat_history" not in st.session_state:
         "L'établissement en chiffres\n600\nEtudiants\n85%\nTaux de réussite\n26\nAns d'expérience\n3\nSpécialités\nSe trouve a Technopole El Ghazela Tunis , siteweb: https://isetcom.tn/\n",
       ],
     },
+     {
+        "role": "user",
+        "parts": [
+            "Quels sont les scores des derniers étudiants admis à l'ISET'Com?",
+            "https://ibb.co/pJD5314" # Add the image URL
+        ],
+    },
     {
       "role": "model",
       "parts": [
