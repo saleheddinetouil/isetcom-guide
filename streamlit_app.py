@@ -30,10 +30,24 @@ model = genai.GenerativeModel(
     system_instruction="Reponds en francais , tunisien"
 )
 
+# Predefined French questions
+questions = [
+    "Quelles sont les spécialités offertes à l'ISET'Com?",
+    "Quels sont les frais de scolarité?",
+    "Y a-t-il des programmes d'aide financière disponibles?",
+    "Comment puis-je postuler à l'ISET'Com?",
+    "Quelles sont les dates limites d'inscription?",
+    "Où se trouve le campus de l'ISET'Com?",
+    "Quels sont les débouchés professionnels après l'obtention du diplôme?",
+    "Y a-t-il des clubs étudiants ou des activités parascolaires?",
+    "L'ISET'Com propose-t-elle des programmes d'échange international?",
+    "Comment puis-je contacter le service des admissions?"
+]
+
 # Initialize chat history
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
-     {
+  {
       "role": "user",
       "parts": [
         "Vous etes un chat bot de guide des nouveaux etudiants , faq , ... ",
@@ -102,18 +116,35 @@ if "chat_history" not in st.session_state:
         "SR et RST sont 2 specialites dans la licence STIC et GTIC n'on pas de specialite ok ?\n",
       ],
     },
-  ]
+    ]
 
 # --- Streamlit App UI ---
-st.title("🎓 University Guide Chatbot 🤖")
-st.write("Ask questions about your institute and get helpful answers!")
+st.title("🎓 Iset'Com Guide Chatbot 🤖")
+st.write("Posez des questions sur l'ISET'Com et obtenez des réponses utiles!")
 
+# Display predefined questions in the sidebar
+st.sidebar.header("Questions Prêtes à l'Emploi")
+for question in questions:
+    if st.sidebar.button(question):
+        # Add question to chat history
+        st.session_state.chat_history.append({"role": "user", "parts": [question]})
+
+        # Generate chatbot response using Gemini
+        prompt = []
+        for message in st.session_state.chat_history:
+            for part in message["parts"]:
+                if isinstance(part, str):
+                    prompt.append(f"{message['role']}: {part}")
+                elif isinstance(part, genai.File):
+                    prompt.append(f"{message['role']}: <file:{part.uri}>")
+        prompt = "\n".join(prompt)
+        response = model.generate_content(prompt)
+
+        # Add chatbot response to chat history
+        st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
 
 # Display chat history
-i = 0
 for message in st.session_state.chat_history:
-  i+=1
-  if i == 12:  
     if message["role"] == "user":
         with st.chat_message("user"):
             for part in message["parts"]:
@@ -128,15 +159,10 @@ for message in st.session_state.chat_history:
                     st.write(part)
 
 # User input
-user_input = st.chat_input("Ask a question:")
-
-# Variable to hold the ongoing user input
-ongoing_input = ""
-
+user_input = st.chat_input("Ou posez votre propre question:")
 if user_input:
-    ongoing_input = user_input  # Store the current input
-
-    # ***Don't add user message to chat history yet***
+    # Add user message to chat history
+    st.session_state.chat_history.append({"role": "user", "parts": [user_input]})
 
     # Generate chatbot response using Gemini
     prompt = []
@@ -146,24 +172,13 @@ if user_input:
                 prompt.append(f"{message['role']}: {part}")
             elif isinstance(part, genai.File):
                 prompt.append(f"{message['role']}: <file:{part.uri}>")
-    prompt = "\n".join(prompt) + f"\nuser: {ongoing_input}"  # Add ongoing input to the prompt
+    prompt = "\n".join(prompt)
     response = model.generate_content(prompt)
 
-    # ***Now add user message and response to chat history***
-    st.session_state.chat_history.append({"role": "user", "parts": [ongoing_input]})
+    # Add chatbot response to chat history
     st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
 
-    # Display chat history (including the new messages)
-    for message in st.session_state.chat_history:
-        if message["role"] == "user":
-            with st.chat_message("user"):
-                for part in message["parts"]:
-                    if isinstance(part, str):
-                        st.write(part)
-                    elif isinstance(part, genai.File):
-                        st.write(f"File: {part.display_name}")
-        else:
-            with st.chat_message("assistant"):
-                for part in message["parts"]:
-                    if isinstance(part, str):
-                        st.write(part)
+    # Display chatbot response
+    with st.chat_message("assistant"):
+        st.write(response.text)
+
