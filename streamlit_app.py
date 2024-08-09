@@ -1,56 +1,89 @@
 import streamlit as st
-from openai import OpenAI
+import os
+import google.generativeai as genai
 
-# Show title and description.
-st.title("💬 Chatbot")
-st.write(
-    "This is a simple chatbot that uses OpenAI's GPT-3.5 model to generate responses. "
-    "To use this app, you need to provide an OpenAI API key, which you can get [here](https://platform.openai.com/account/api-keys). "
-    "You can also learn how to build this app step by step by [following our tutorial](https://docs.streamlit.io/develop/tutorials/llms/build-conversational-apps)."
+# Set page config for a wider layout
+st.set_page_config(page_title="University Guide Chatbot", page_icon="🎓", layout="wide")
+
+# Get API key from environment variable
+api_key = os.getenv("API")
+if api_key is None:
+    st.error("Error: GEMINI_API_KEY environment variable is not set.")
+    st.stop()
+
+# Configure Gemini
+genai.configure(api_key=api_key)
+
+# Create the model
+generation_config = {
+    "temperature": 0.7,  # Adjust temperature for more focused responses
+    "top_p": 0.95,
+    "top_k": 40,
+    "max_output_tokens": 512,  # Adjust as needed
+    "response_mime_type": "text/plain",
+}
+
+model = genai.GenerativeModel(
+    model_name="gemini-1.5-flash",
+    generation_config=generation_config,
 )
 
-# Ask user for their OpenAI API key via `st.text_input`.
-# Alternatively, you can store the API key in `./.streamlit/secrets.toml` and access it
-# via `st.secrets`, see https://docs.streamlit.io/develop/concepts/connections/secrets-management
-openai_api_key = st.text_input("OpenAI API Key", type="password")
-if not openai_api_key:
-    st.info("Please add your OpenAI API key to continue.", icon="🗝️")
-else:
+# Predefined questions
+questions = [
+    "What are the most popular majors at this institute?",
+    "What are the admission requirements?",
+    "What are the available scholarships and financial aid options?",
+    "What are the best student clubs and organizations to join?",
+    "What are the on-campus housing options?",
+    "How can I get involved in research opportunities?",
+    "What are the career services and job placement resources?",
+    "What are the best places to study on campus?",
+    "What are some tips for succeeding in my first year?",
+    "Where can I find information about tutoring and academic support?"
+]
 
-    # Create an OpenAI client.
-    client = OpenAI(api_key=openai_api_key)
+# Initialize chat history
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
 
-    # Create a session state variable to store the chat messages. This ensures that the
-    # messages persist across reruns.
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
+# --- Streamlit App UI ---
+st.title("🎓 University Guide Chatbot 🤖")
+st.write("Ask questions about your institute and get helpful answers!")
 
-    # Display the existing chat messages via `st.chat_message`.
-    for message in st.session_state.messages:
-        with st.chat_message(message["role"]):
-            st.markdown(message["content"])
+# Display predefined questions
+st.sidebar.header("Ready-Made Questions")
+for question in questions:
+    if st.sidebar.button(question):
+        # Add question to chat history
+        st.session_state.chat_history.append(f"input:{question}")
 
-    # Create a chat input field to allow the user to enter a message. This will display
-    # automatically at the bottom of the page.
-    if prompt := st.chat_input("What is up?"):
+        # Generate chatbot response using Gemini
+        prompt = st.session_state.chat_history.copy()
+        prompt.append("output:")
+        response = model.generate_content(prompt)
 
-        # Store and display the current prompt.
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        with st.chat_message("user"):
-            st.markdown(prompt)
+        # Add chatbot response to chat history
+        st.session_state.chat_history.append(f"output:{response.text}")
 
-        # Generate a response using the OpenAI API.
-        stream = client.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
-            stream=True,
-        )
+# Display chat history
+for message in st.session_state.chat_history:
+    with st.chat_message("assistant" if message.startswith("output:") else "user"):
+        st.write(message.replace("input:", "").replace("output:", "").strip())
 
-        # Stream the response to the chat using `st.write_stream`, then store it in 
-        # session state.
-        with st.chat_message("assistant"):
-            response = st.write_stream(stream)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+# User input (optional)
+user_input = st.chat_input("Or ask your own question:")
+if user_input:
+    # Add user message to chat history
+    st.session_state.chat_history.append(f"input:{user_input}")
+
+    # Generate chatbot response using Gemini
+    prompt = st.session_state.chat_history.copy()
+    prompt.append("output:")
+    response = model.generate_content(prompt)
+
+    # Add chatbot response to chat history
+    st.session_state.chat_history.append(f"output:{response.text}")
+
+    # Display chatbot response
+    with st.chat_message("assistant"):
+        st.write(response.text)
