@@ -44,7 +44,50 @@ questions = [
 
 # Initialize chat history
 if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
+    st.session_state.chat_history = [ history=[
+    {
+      "role": "user",
+      "parts": [
+        "Vous etes un chat bot de guide des nouveaux etudiants , faq , ... ",
+        files[0],
+        files[1],
+        files[2],
+        files[3],
+        files[4],
+      ],
+    },
+    {
+      "role": "model",
+      "parts": [
+        "Bonjour ! Je suis un chatbot conçu pour aider les nouveaux étudiants à se familiariser avec leur parcours universitaire.\n\nD'après les documents que vous avez fournis, je vois que vous êtes Salima et que vous allez commencer une Licence en Réseaux et Systèmes des Télécommunications, n'est-ce pas ? Félicitations pour votre admission ! \n\nJe peux vous fournir des informations sur :\n\n* **Les unités d'enseignement (UE) et les éléments constitutifs (EE) de chaque semestre :**  Je peux vous détailler les cours qui vous seront proposés, leurs coefficients et le volume horaire de chacun. Par exemple, au semestre 4, l'UE \"Systèmes d'accès télécoms\" (code 576102410) comprend deux EEs : \"Les réseaux d'accès sans fil\" et \"Atelier réseaux d'accès\".\n* **Les différents types d'enseignements :** Cours magistraux (Cours), Travaux Dirigés (TD), Travaux Pratiques (TP) ...\n* **Les modalités d'évaluation :** Contrôle continu (CC) \n* **Les abréviations utilisées :**  Nat (Nature de l'UE : Fondamentale, Transversale...), Cr (crédits), Coef (coefficient), Rg (régime d'examen).\n\n\nN'hésitez pas à me poser des questions plus précises. Par exemple :\n\n* \"Quels sont les cours que j'aurai au semestre 5 ?\"\n* \"Quel est le coefficient de l'UE 'Objets connectés et IoT' ?\"\n* \"Que signifie 'C.Int' dans le tableau ?\"\n\nPlus vous êtes précis dans vos questions, plus je pourrai vous fournir des réponses utiles et pertinentes. \n\nJ'ai également accès aux informations concernant la Licence en Sécurité des Réseaux et la Licence Tronc Commun. Si vous avez des questions à propos de ces parcours, n'hésitez pas à me les poser.\n\nJe suis là pour vous aider à démarrer votre parcours universitaire du bon pied !\n",
+      ],
+    },
+    {
+      "role": "user",
+      "parts": [
+        files[5],
+        "Bienvenue aux nouveaux étudiants de l'ISETCOM.\nNous sommes impatients de vous voir commencer cette nouvelle aventure académique avec nous.\n\nLes scores sont des derniers etudiant de differents bacs info , maths , sciences , technique qui ont ete acceptee a liset Com ",
+      ],
+    },
+    {
+      "role": "model",
+      "parts": [
+        "Ah, je comprends mieux !  Il s'agit des scores du concours d'entrée à l'ISETCOM pour l'année 2024.  \n\nCe document montre les scores minimums requis pour être admis à l'ISETCOM, par filière du baccalauréat. \n\nPar exemple :\n\n* **Pour les étudiants ayant un baccalauréat en Sciences Expérimentales (علوم تجريبية) :**  Le score minimum pour être admis à la filière \"Sciences et Technologies de l'Information et de la Communication\" (code 10360) était de 144.38. \n* **Pour les étudiants ayant un baccalauréat en Mathématiques (رياضيات) :** Le score minimum pour être admis à la filière \"Sciences et Technologies de l'Information et de la Communication\" (code 10360) était de 156.47.\n\nCe document est très utile pour les nouveaux bacheliers qui souhaitent intégrer l'ISETCOM. Il leur permet de se situer et d'évaluer leurs chances d'admission.\n\nAvez-vous des questions sur ces scores d'admission ? Par exemple, souhaitez-vous savoir quel était le score minimum pour une filière en particulier ?  Ou bien voulez-vous connaître le score moyen d'admission pour une filière donnée ?\n",
+      ],
+    },
+    {
+      "role": "user",
+      "parts": [
+        "L'établissement en chiffres\n600\nEtudiants\n85%\nTaux de réussite\n26\nAns d'expérience\n3\nSpécialités\n\n",
+      ],
+    },
+    {
+      "role": "model",
+      "parts": [
+        "Voici un excellent résumé de l'ISETCOM en quelques chiffres clés ! \n\nOn comprend vite pourquoi cet établissement est attractif :\n\n* **600 étudiants**: Une taille humaine qui favorise la proximité avec les enseignants et un environnement d'apprentissage convivial.\n* **85% de taux de réussite**: C'est un chiffre encourageant qui témoigne de la qualité de l'enseignement et de l'accompagnement des étudiants. \n* **26 ans d'expérience**:  L'ISETCOM a une longue histoire et une solide expertise dans la formation en Sciences et Technologies de l'Information et de la Communication.\n* **3 spécialités**:  L'établissement propose une offre de formation ciblée et pointue qui répond aux besoins du marché du travail.\n\n\nAvez-vous d'autres questions sur l'ISETCOM ?  Par exemple, aimeriez-vous en savoir plus sur les 3 spécialités proposées ?  Je suis là pour vous donner toutes les informations dont vous avez besoin.\n",
+      ],
+    },
+  ]]
 
 # --- Streamlit App UI ---
 st.title("🎓 University Guide Chatbot 🤖")
