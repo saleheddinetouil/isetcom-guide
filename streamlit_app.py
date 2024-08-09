@@ -27,6 +27,7 @@ generation_config = {
 model = genai.GenerativeModel(
     model_name="gemini-1.5-flash",
     generation_config=generation_config,
+    system_instruction="Reponds en francais , tunisien"
 )
 
 # Initialize chat history
