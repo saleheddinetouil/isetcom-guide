@@ -29,74 +29,55 @@ model = genai.GenerativeModel(
     generation_config=generation_config,
 )
 
-
 def upload_to_gemini(path, mime_type=None):
-  """Uploads the given file to Gemini.
-
-  See https://ai.google.dev/gemini-api/docs/prompting_with_media
-  """
-  file = genai.upload_file(path, mime_type=mime_type)
-  print(f"Uploaded file '{file.display_name}' as: {file.uri}")
-  return file
+    """Uploads the given file to Gemini."""
+    with open(path, "rb") as f:
+        file = genai.upload_file(f, mime_type=mime_type)
+    print(f"Uploaded file '{file.display_name}' as: {file.uri}")
+    return file
 
 def wait_for_files_active(files):
-  """Waits for the given files to be active.
+    """Waits for the given files to be active."""
+    print("Waiting for file processing...")
+    for file in files:
+        while file.state.name == "PROCESSING":
+            print(".", end="", flush=True)
+            time.sleep(10)
+            file = genai.get_file(file.name)
+        if file.state.name != "ACTIVE":
+            raise Exception(f"File {file.name} failed to process")
+    print("...all files ready")
+    print()
 
-  Some files uploaded to the Gemini API need to be processed before they can be
-  used as prompt inputs. The status can be seen by querying the file's "state"
-  field.
-
-  This implementation uses a simple blocking polling loop. Production code
-  should probably employ a more sophisticated approach.
-  """
-  print("Waiting for file processing...")
-  for name in (file.name for file in files):
-    file = genai.get_file(name)
-    while file.state.name == "PROCESSING":
-      print(".", end="", flush=True)
-      time.sleep(10)
-      file = genai.get_file(name)
-    if file.state.name != "ACTIVE":
-      raise Exception(f"File {file.name} failed to process")
-  print("...all files ready")
-  print()
-
-
-# TODO Make these files available on the local file system
-# You may need to update the file paths
-files = [
-  upload_to_gemini("Plan_d_etude_RST_semestres_4_5_et_6_.pdf", mime_type="application/pdf"),
-  upload_to_gemini("Plan_d_etude_SR_semestres_4_5_et_6_.pdf", mime_type="application/pdf"),
-  upload_to_gemini("Plan_d_etude_STIC_semestres_1_2_et_3_.pdf", mime_type="application/pdf"),
-  upload_to_gemini("Plan_d_etude_MASTER.pdf", mime_type="application/pdf"),
-  upload_to_gemini("Plan_d_etude_GTIC.pdf", mime_type="application/pdf"),
-  upload_to_gemini("Unknown File", mime_type="application/octet-stream"),
+# Specify the paths to your local files
+file_paths = [
+    "Plan_d_etude_RST_semestres_4_5_et_6_.pdf",
+    "Plan_d_etude_SR_semestres_4_5_et_6_.pdf",
+    "Plan_d_etude_STIC_semestres_1_2_et_3_.pdf",
+    "Plan_d_etude_MASTER.pdf",
+    "Plan_d_etude_GTIC.pdf",
+    "last-scores.jpg"
+    # Add other file paths as needed
 ]
 
-# Some files have a processing delay. Wait for them to be ready.
+# Upload files to Gemini
+files = [upload_to_gemini(r"data/"+path, mime_type="application/pdf") for path in file_paths]
+
+# Wait for files to be active
 wait_for_files_active(files)
 
 # Initialize chat history
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
-    {
-      "role": "user",
-      "parts": [
-        "Vous etes un chat bot de guide des nouveaux etudiants , faq , ... ",
-        files[0],
-        files[1],
-        files[2],
-        files[3],
-        files[4],
-      ],
-    },
-    {
-      "role": "model",
-      "parts": [
-        "Bonjour ! Je suis un chatbot conçu pour aider les nouveaux étudiants à se familiariser avec leur parcours universitaire.\n\nD'après les documents que vous avez fournis, je vois que vous êtes Salima et que vous allez commencer une Licence en Réseaux et Systèmes des Télécommunications, n'est-ce pas ? Félicitations pour votre admission ! \n\nJe peux vous fournir des informations sur :\n\n* **Les unités d'enseignement (UE) et les éléments constitutifs (EE) de chaque semestre :**  Je peux vous détailler les cours qui vous seront proposés, leurs coefficients et le volume horaire de chacun. Par exemple, au semestre 4, l'UE \"Systèmes d'accès télécoms\" (code 576102410) comprend deux EEs : \"Les réseaux d'accès sans fil\" et \"Atelier réseaux d'accès\".\n* **Les différents types d'enseignements :** Cours magistraux (Cours), Travaux Dirigés (TD), Travaux Pratiques (TP) ...\n* **Les modalités d'évaluation :** Contrôle continu (CC) \n* **Les abréviations utilisées :**  Nat (Nature de l'UE : Fondamentale, Transversale...), Cr (crédits), Coef (coefficient), Rg (régime d'examen).\n\n\nN'hésitez pas à me poser des questions plus précises. Par exemple :\n\n* \"Quels sont les cours que j'aurai au semestre 5 ?\"\n* \"Quel est le coefficient de l'UE 'Objets connectés et IoT' ?\"\n* \"Que signifie 'C.Int' dans le tableau ?\"\n\nPlus vous êtes précis dans vos questions, plus je pourrai vous fournir des réponses utiles et pertinentes. \n\nJ'ai également accès aux informations concernant la Licence en Sécurité des Réseaux et la Licence Tronc Commun. Si vous avez des questions à propos de ces parcours, n'hésitez pas à me les poser.\n\nJe suis là pour vous aider à démarrer votre parcours universitaire du bon pied !\n",
-      ],
-    },
-  ]
+        {
+            "role": "user",
+            "parts": [
+                "Vous etes un chat bot de guide des nouveaux etudiants , faq , ... ",
+                *files,  # Include all uploaded files
+            ],
+        },
+        # ... (rest of the initial chat history)
+    ]
 
 # --- Streamlit App UI ---
 st.title("🎓 University Guide Chatbot 🤖")
@@ -110,7 +91,7 @@ for message in st.session_state.chat_history:
                 if isinstance(part, str):
                     st.write(part)
                 elif isinstance(part, genai.File):
-                    st.write(f"File: {part.display_name}")  # Display file name
+                    st.write(f"File: {part.display_name}")
     else:
         with st.chat_message("assistant"):
             for part in message["parts"]:
