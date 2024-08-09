@@ -44,7 +44,7 @@ questions = [
 
 # Initialize chat history
 if "chat_history" not in st.session_state:
-    st.session_state.chat_history = [ history=[
+    st.session_state.chat_history = [
     {
       "role": "user",
       "parts": [
@@ -87,7 +87,7 @@ if "chat_history" not in st.session_state:
         "Voici un excellent résumé de l'ISETCOM en quelques chiffres clés ! \n\nOn comprend vite pourquoi cet établissement est attractif :\n\n* **600 étudiants**: Une taille humaine qui favorise la proximité avec les enseignants et un environnement d'apprentissage convivial.\n* **85% de taux de réussite**: C'est un chiffre encourageant qui témoigne de la qualité de l'enseignement et de l'accompagnement des étudiants. \n* **26 ans d'expérience**:  L'ISETCOM a une longue histoire et une solide expertise dans la formation en Sciences et Technologies de l'Information et de la Communication.\n* **3 spécialités**:  L'établissement propose une offre de formation ciblée et pointue qui répond aux besoins du marché du travail.\n\n\nAvez-vous d'autres questions sur l'ISETCOM ?  Par exemple, aimeriez-vous en savoir plus sur les 3 spécialités proposées ?  Je suis là pour vous donner toutes les informations dont vous avez besoin.\n",
       ],
     },
-  ]]
+  ]
 
 # --- Streamlit App UI ---
 st.title("🎓 University Guide Chatbot 🤖")
