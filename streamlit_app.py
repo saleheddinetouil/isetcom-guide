@@ -52,17 +52,17 @@ def wait_for_files_active(files):
 
 # Specify the paths to your local files
 file_paths = [
-    "Plan_d_etude_RST_semestres_4_5_et_6_.pdf",
-    "Plan_d_etude_SR_semestres_4_5_et_6_.pdf",
-    "Plan_d_etude_STIC_semestres_1_2_et_3_.pdf",
-    "Plan_d_etude_MASTER.pdf",
-    "Plan_d_etude_GTIC.pdf",
-    "last-scores.jpg"
+    r"data/Plan_d_etude_RST_semestres_4_5_et_6_.pdf",
+    r"data/Plan_d_etude_SR_semestres_4_5_et_6_.pdf",
+    r"data/Plan_d_etude_STIC_semestres_1_2_et_3_.pdf",
+    r"data/Plan_d_etude_MASTER.pdf",
+    r"data/Plan_d_etude_GTIC.pdf",
+    r"data/last-scores.jpg"
     # Add other file paths as needed
 ]
 
 # Upload files to Gemini
-files = [upload_to_gemini(r"data/"+path, mime_type="application/pdf") for path in file_paths]
+files = [upload_to_gemini(path, mime_type="application/pdf") for path in file_paths]
 
 # Wait for files to be active
 wait_for_files_active(files)
