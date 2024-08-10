@@ -27,7 +27,14 @@ generation_config = {
 model = genai.GenerativeModel(
     model_name="gemini-1.5-flash",
     generation_config=generation_config,
-    system_instruction="Reponds en francais , tunisien"
+    system_instruction="""Reponds en francais , tunisien.
+    Iset'Com se trouve au Technopole El Ghazela Tunis , siteweb: https://isetcom.tn/
+    aYANT 2 Licences STIC et GTIC
+    STIC : 3 semestres tronc commun et 3 semestres de specialite SR et RST
+    GTIC : 6 semestres tronc commun.
+    Les frais de scolarite sont fixés par l'ISET'Com de (70 - 82dt).
+
+    """
 )
 
 # Predefined French questions
