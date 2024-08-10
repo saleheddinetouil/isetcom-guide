@@ -153,6 +153,7 @@ st.sidebar.markdown(
     [![Facebook](https://img.shields.io/badge/-Facebook-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/ISETCom)
     [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://tn.linkedin.com/school/iset-com/)
     [![Website](https://img.shields.io/badge/-Website-0077B5?logo=website&logoColor=white)](https://isetcom.tn/)
+    [![Iset'Comian'S](https://img.shields.io/badge/-Facebook-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/groups/377145616641546)
     """
 )
 
