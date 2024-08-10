@@ -39,6 +39,8 @@ model = genai.GenerativeModel(
     * Club CPU 
     * Club IEEE
     * Club Tunivisions
+    Programme de double diplome 1 europeen et 1 tunisien en collaboration avec l'universite de Limoges en france.
+     Ce programme pour les etudiants de 3eme annee et l'admission de ce programme se fait en 2eme sur dossier.
 
     """
 )
@@ -48,12 +50,10 @@ questions = [
     "Quels sont les programmes d'ISET'Com?",
     "Quelles sont les spécialités offertes à l'ISET'Com?",
     "Quelle est la différence entre les specialités?",
-    "Quels sont les frais de scolarité?",
     "Où se trouve le campus de l'ISET'Com?",
     "Quels sont les débouchés professionnels après l'obtention du diplôme?",
     "Y a-t-il des clubs étudiants ou des activités parascolaires?",
     "L'ISET'Com propose-t-elle des programmes d'échange international?",
-    "Comment puis-je contacter le service des admissions?",
     "Quels sont les scores des derniers étudiants admis à l'ISET'Com?" # New question
 ]
 
@@ -170,7 +170,7 @@ for question in questions:
 
 # Display chat history
 for message in st.session_state.chat_history:
-    if message["role"] == "user" and message["show"]:
+    if message["role"] == "user" or message["show"]:
         with st.chat_message("user"):
             for part in message["parts"]:
                 if isinstance(part, str):
