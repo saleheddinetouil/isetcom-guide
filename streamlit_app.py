@@ -170,14 +170,14 @@ for question in questions:
 
 # Display chat history
 for message in st.session_state.chat_history:
-    if message["role"] == "user" and message["show"]:
+    if message["role"] == "user":
         with st.chat_message("user"):
             for part in message["parts"]:
                 if isinstance(part, str):
                     st.write(part)
                 elif isinstance(part, genai.File):
                     st.write(f"File: {part.display_name}")
-    elif message["role"] == "assistant" and message["show"]:
+    elif message["role"] == "assistant":
         with st.chat_message("assistant"):
             for part in message["parts"]:
                 if isinstance(part, str):
