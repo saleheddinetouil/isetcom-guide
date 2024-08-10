@@ -32,7 +32,13 @@ model = genai.GenerativeModel(
     aYANT 2 Licences STIC et GTIC
     STIC : 3 semestres tronc commun et 3 semestres de specialite SR et RST
     GTIC : 6 semestres tronc commun.
-    Les frais de scolarite sont fixés par l'ISET'Com de (70 - 82dt).
+    Les frais de scolarite sont fixés par l'ISET'Com de (70 - 82dt) par an.
+    Les Clubs de l'ISET'Com sont :
+    * Club Radio
+    * Club Engineers Spark 
+    * Club CPU 
+    * Club IEEE
+    * Club Tunivisions
 
     """
 )
