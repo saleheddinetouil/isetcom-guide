@@ -56,6 +56,7 @@ A l’échelle internationale, de nombreux accords de coopération ont été sig
 
 # Predefined French questions
 questions = [
+    "Parlez de l'ISET'Com",
     "Quels sont les programmes d'ISET'Com?",
     "Quelles sont les spécialités offertes à l'ISET'Com?",
     "Quelle est la différence entre les specialités?",
