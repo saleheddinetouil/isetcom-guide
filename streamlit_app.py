@@ -188,7 +188,7 @@ user_input = st.chat_input("Ou posez votre propre question:")
 if user_input:
     # Add user message to chat history
     st.session_state.chat_history.append({"show":True,
-"role": "model", "parts": [user_input]})
+"role": "user", "parts": [user_input]})
 
     # Generate chatbot response using Gemini
     prompt = []
