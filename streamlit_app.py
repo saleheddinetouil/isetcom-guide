@@ -177,7 +177,7 @@ for message in st.session_state.chat_history:
                     st.write(part)
                 elif isinstance(part, genai.File):
                     st.write(f"File: {part.display_name}")
-    elif message["role"] == "assistant" and message["show"]:
+    elif message["role"] == "assistant" or message["show"]:
         with st.chat_message("assistant"):
             for part in message["parts"]:
                 if isinstance(part, str):
