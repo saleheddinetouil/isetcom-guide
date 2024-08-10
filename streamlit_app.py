@@ -204,6 +204,10 @@ if user_input:
     # Add chatbot response to chat history
     st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
 
+    # Display user input
+    with st.chat_message("user"):
+        st.write(user_input)
+
     # Display chatbot response
     with st.chat_message("assistant"):
         st.write(response.text)
