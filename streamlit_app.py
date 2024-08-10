@@ -41,7 +41,16 @@ model = genai.GenerativeModel(
     * Club Tunivisions
     Programme de double diplome 1 europeen et 1 tunisien en collaboration avec l'universite de Limoges en france.
      Ce programme pour les etudiants de 3eme annee et l'admission de ce programme se fait en 2eme sur dossier.
+    A propos de liset com
 
+    L'Institut Supérieur des Etudes Technologiques en Communications de Tunis (ISET’COM ) est un établissement d’enseignement supérieur (Créé par Décret n°98-10650 du 11 Mai 1998) dont la mission consiste à :
+Former des licenciés et cadres techniques dans le domaine des communications (en formation initiale et continue);
+Assurer des activités de recherche appliquée et de transfert de technologie;
+Réaliser des actions de partenariat avec les entreprises et les universités nationales et internationales et de participer à la diffusion du savoir.
+ Fort du professionnalisme et de l’expérience de ses enseignants chercheurs et ingénieurs, ISET’COM est un établissement pluridisciplinaire qui répond aux besoins des entreprises en matière d’Ingénierie Télécom et de Technologie de l’Information et de la Communication. Implantée à Tunis et particulièrement au sein du Pôle Technologique, notre Institut bénéficie d’un environnement favorable réunissant des compétences de haut niveau scientifique et technologique dans le domaine des télécommunications et des technologies de l’information et de la communication
+ C’est en partant des besoins des entreprises notamment dans les secteurs des Télécommunications et des Technologies de l’Information & de la Communication que ISET’COM a défini ses filières de formation. Par leur complémentarité et diversité, les filières de ISET’COM offrent davantage de choix et d’opportunité aux jeunes qui ambitionnent d’obtenir des diplômes de haut niveau et qui leur permettent de meilleures perspectives d’emploi. Par ailleurs, les Lauréats de l’ISET’COM ont plusieurs possibilités de poursuivre leurs études :
+A l’échelle nationale, en intégrant les écoles d’Ingénieurs ou d’autres établissements universitaires
+A l’échelle internationale, de nombreux accords de coopération ont été signés avec des institutions d’enseignement et de formation (France, Maroc, Canada…), avec une co-Diplômation avec l’Université de Limoges. 
     """
 )
 
@@ -151,9 +160,10 @@ st.write("Posez des questions sur l'ISET'Com et obtenez des réponses utiles!")
 st.sidebar.markdown(
     """
     [![Facebook](https://img.shields.io/badge/-Facebook-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/ISETCom)
+    [![Iset'Comian'S](https://img.shields.io/badge/FB_GROUP-Iset_ComianS-blue)](https://www.facebook.com/groups/377145616641546) 
     [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://tn.linkedin.com/school/iset-com/)
     [![Website](https://img.shields.io/badge/-Website-0077B5?logo=website&logoColor=white)](https://isetcom.tn/)
-    [![Iset'Comian'S](https://img.shields.io/badge/-Facebook-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/groups/377145616641546)
+    
     """
 )
 
