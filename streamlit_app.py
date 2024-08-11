@@ -176,9 +176,10 @@ st.sidebar.image("https://scontent.ftun10-2.fna.fbcdn.net/v/t1.6435-9/117945334_
 st.sidebar.header("Questions Prêtes à l'Emploi")
 for question in questions:
     if st.sidebar.button(question):
+        
         # Add question to chat history
-        st.session_state.chat_history.append({"show":False,
-"role": "model", "parts": [question]})
+        st.session_state.chat_history.append({"role": "user", "parts": [question]})
+
 
         # Generate chatbot response using Gemini
         prompt = []
@@ -191,8 +192,6 @@ for question in questions:
         prompt = "\n".join(prompt)
         response = model.generate_content(prompt)
 
-        # Add user message to chat history
-        st.session_state.chat_history.append({"role": "user", "parts": [question]})
 
         # Add chatbot response to chat history
         st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
