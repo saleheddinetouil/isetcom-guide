@@ -211,7 +211,7 @@ with tabs[0] as tab1:
                             tab1.write(part)
 
         # User input
-        user_input = st.tab1.chat_input("Ou posez votre propre question:")
+        user_input = st.chat_input("Ou posez votre propre question:")
         if user_input:
             # Add user message to chat history
             st.session_state.chat_history.append({"show":True,
