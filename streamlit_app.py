@@ -151,90 +151,62 @@ if "chat_history" not in st.session_state:
 },
     ]
 
+# --- Tab Management ---
+tabs = ["Guide Chatbot", "Gallery"]
+selected_tab = st.tabs(tabs)
 
-# --- Streamlit App UI ---
-st.title("🎓 Iset'Com Guide 🤖")
-st.write("Posez des questions sur l'ISET'Com et obtenez des réponses utiles!")
+# --- Content and Sidebar based on Tab ---
+if selected_tab == "Guide Chatbot":
+    st.title("🎓 Iset'Com Guide Chatbot 🤖")
+    st.write("Posez des questions sur l'ISET'Com et obtenez des réponses utiles!")
+
+    # --- Sidebar ---
+    st.sidebar.markdown(
+        """
+        [![Facebook](https://img.shields.io/badge/-Facebook-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/ISETCom)
+        [![Iset'Comian'S](https://img.shields.io/badge/FB_GROUP-Iset_ComianS-blue)](https://www.facebook.com/groups/377145616641546) 
+        [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://tn.linkedin.com/school/iset-com/)
+        [![Website](https://img.shields.io/badge/-Website-0077B5?logo=website&logoColor=white)](https://isetcom.tn/)
+
+        """
+    )
+    st.sidebar.image("https://scontent.ftun10-2.fna.fbcdn.net/v/t1.6435-9/117945334_1707831949375490_3804404197353496189_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=25d718&_nc_ohc=YtNKkPn_B6wQ7kNvgGrq6fC&_nc_ht=scontent.ftun10-2.fna&oh=00_AYCggODOaRxAkp0PIzFA-m-YF2GdA8LwDfA6gycmB2-tjw&oe=66DEFF72")
+    st.sidebar.header("Questions Prêtes à l'Emploi")
+    for question in questions:
+        if st.sidebar.button(question):
+            st.session_state.chat_history.append({"role": "user", "parts": [question]})
+            generate_response()
+
+    # --- Chat Input and Response ---
+    user_input = st.chat_input("Ou posez votre propre question:")
+    if user_input:
+        st.session_state.chat_history.append({"role": "user", "parts": [user_input]})
+        generate_response()
+
+    # --- Display Chat History ---
+    for message in st.session_state.chat_history:
+        if message["role"] == "user":
+            with st.chat_message("user"):
+                st.write(message["parts"][0])  # Assuming single-part messages for now
+        else:
+            with st.chat_message("assistant"):
+                st.write(message["parts"][0])
+
+elif selected_tab == "Gallery":
+    st.title("🖼️ Iset'Com Gallery")
+    st.write("Découvrez la vie étudiante à l'ISET'Com en images!")
 
 
-# Display Social media links in the sidebar
-st.sidebar.markdown(
-    """
-    [![Facebook](https://img.shields.io/badge/-Facebook-1877F2?logo=facebook&logoColor=white)](https://www.facebook.com/ISETCom)
-    [![Iset'Comian'S](https://img.shields.io/badge/FB_GROUP-Iset_ComianS-blue)](https://www.facebook.com/groups/377145616641546) 
-    [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?logo=linkedin&logoColor=white)](https://tn.linkedin.com/school/iset-com/)
-    [![Website](https://img.shields.io/badge/-Website-0077B5?logo=website&logoColor=white)](https://isetcom.tn/)
-    
-    """
-)
-
-# display university image
-st.sidebar.image("https://scontent.ftun10-2.fna.fbcdn.net/v/t1.6435-9/117945334_1707831949375490_3804404197353496189_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=25d718&_nc_ohc=YtNKkPn_B6wQ7kNvgGrq6fC&_nc_ht=scontent.ftun10-2.fna&oh=00_AYCggODOaRxAkp0PIzFA-m-YF2GdA8LwDfA6gycmB2-tjw&oe=66DEFF72")
-
-
-# Display predefined questions in the sidebar
-st.sidebar.header("Questions Prêtes à l'Emploi")
-for question in questions:
-    if st.sidebar.button(question):
-        # Add question to chat history
-        st.session_state.chat_history.append({"show":False,
-"role": "model", "parts": [question]})
-
-        # Generate chatbot response using Gemini
+    # --- Response Generation Function ---
+def generate_response():
+    try:
         prompt = []
-        for message in st.session_state.chat_history:
-            for part in message["parts"]:
-                if isinstance(part, str):
-                    prompt.append(f"{message['role']}: {part}")
-                elif isinstance(part, genai.File):
-                    prompt.append(f"{message['role']}: <file:{part.uri}>")
+        for message in st.session_state.chat_history[-MAX_HISTORY_LENGTH:]:  # Limit history
+            prompt.append(f"{message['role']}: {message['parts'][0]}")
         prompt = "\n".join(prompt)
-        response = model.generate_content(prompt)
 
-        # Add chatbot response to chat history
+        response = model.generate_content(prompt)
         st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
 
-# Display chat history
-for message in st.session_state.chat_history:
-    if message["role"] == "user":
-        with st.chat_message("user"):
-            for part in message["parts"]:
-                if isinstance(part, str):
-                    st.write(part)
-                elif isinstance(part, genai.File):
-                    st.write(f"File: {part.display_name}")
-    elif message["role"] == "assistant":
-        with st.chat_message("assistant"):
-            for part in message["parts"]:
-                if isinstance(part, str):
-                    st.write(part)
-
-# User input
-user_input = st.chat_input("Ou posez votre propre question:")
-if user_input:
-    # Add user message to chat history
-    st.session_state.chat_history.append({"show":True,
-"role": "user", "parts": [user_input]})
-
-    # Generate chatbot response using Gemini
-    prompt = []
-    for message in st.session_state.chat_history:
-        for part in message["parts"]:
-            if isinstance(part, str):
-                prompt.append(f"{message['role']}: {part}")
-            elif isinstance(part, genai.File):
-                prompt.append(f"{message['role']}: <file:{part.uri}>")
-    prompt = "\n".join(prompt)
-    response = model.generate_content(prompt)
-
-    # Add chatbot response to chat history
-    st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
-
-    # Display user input
-    with st.chat_message("user"):
-        st.write(user_input)
-
-    # Display chatbot response
-    with st.chat_message("assistant"):
-        st.write(response.text)
-
+    except genai.GenerativeAIError as e:
+        st.error(f"Une erreur s'est produite lors de la génération d'une réponse: {e}")
