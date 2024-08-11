@@ -172,7 +172,21 @@ st.sidebar.markdown(
 st.sidebar.image("https://scontent.ftun10-2.fna.fbcdn.net/v/t1.6435-9/117945334_1707831949375490_3804404197353496189_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=25d718&_nc_ohc=YtNKkPn_B6wQ7kNvgGrq6fC&_nc_ht=scontent.ftun10-2.fna&oh=00_AYCggODOaRxAkp0PIzFA-m-YF2GdA8LwDfA6gycmB2-tjw&oe=66DEFF72")
 
 tabs = ["Welcome","Guide","FAQ", "Gallery", "Resources"]
-selected_tab = st.tabs(tabs)
+welcome , guide, faq, gallery, resources = st.tabs(tabs)
+
+
+with welcome:
+    st.markdown(
+        """
+        <h2 style='text-align: center;'>Bienvenue sur l'ISET'Com Guide</h2>
+        <p style='text-align: center;'>
+        Cet outil permet de communiquer avec l'ISET'Com.
+        </p>
+        """
+    )
+
+
+
 
 
 
@@ -199,47 +213,57 @@ for question in questions:
         # Add chatbot response to chat history
         st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
 
-# Display chat history
-for message in st.session_state.chat_history:
-    if message["role"] == "user":
-        with st.chat_message("user"):
-            for part in message["parts"]:
-                if isinstance(part, str):
-                    st.write(part)
-                elif isinstance(part, genai.File):
-                    st.write(f"File: {part.display_name}")
-    elif message["role"] == "assistant":
-        with st.chat_message("assistant"):
-            for part in message["parts"]:
-                if isinstance(part, str):
-                    st.write(part)
+with guide:
+    st.markdown(
+        """
+        <h2 style='text-align: center;'>Guide</h2>
+        <p style='text-align: center;'>
+        Cet outil permet de communiquer avec l'ISET'Com.
+        </p>
+        """
+    )
 
-# User input
-user_input = st.chat_input("Ou posez votre propre question:")
-if user_input:
-    # Add user message to chat history
-    st.session_state.chat_history.append({"show":True,
-"role": "user", "parts": [user_input]})
-
-    # Generate chatbot response using Gemini
-    prompt = []
+    # Display chat history
     for message in st.session_state.chat_history:
-        for part in message["parts"]:
-            if isinstance(part, str):
-                prompt.append(f"{message['role']}: {part}")
-            elif isinstance(part, genai.File):
-                prompt.append(f"{message['role']}: <file:{part.uri}>")
-    prompt = "\n".join(prompt)
-    response = model.generate_content(prompt)
+        if message["role"] == "user":
+            with st.chat_message("user"):
+                for part in message["parts"]:
+                    if isinstance(part, str):
+                        st.write(part)
+                    elif isinstance(part, genai.File):
+                        st.write(f"File: {part.display_name}")
+        elif message["role"] == "assistant":
+            with st.chat_message("assistant"):
+                for part in message["parts"]:
+                    if isinstance(part, str):
+                        st.write(part)
 
-    # Add chatbot response to chat history
-    st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
+    # User input
+    user_input = st.chat_input("Ou posez votre propre question:")
+    if user_input:
+        # Add user message to chat history
+        st.session_state.chat_history.append({"show":True,
+    "role": "user", "parts": [user_input]})
 
-    # Display user input
-    with st.chat_message("user"):
-        st.write(user_input)
+        # Generate chatbot response using Gemini
+        prompt = []
+        for message in st.session_state.chat_history:
+            for part in message["parts"]:
+                if isinstance(part, str):
+                    prompt.append(f"{message['role']}: {part}")
+                elif isinstance(part, genai.File):
+                    prompt.append(f"{message['role']}: <file:{part.uri}>")
+        prompt = "\n".join(prompt)
+        response = model.generate_content(prompt)
 
-    # Display chatbot response
-    with st.chat_message("assistant"):
-        st.write(response.text)
+        # Add chatbot response to chat history
+        st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
+
+        # Display user input
+        with st.chat_message("user"):
+            st.write(user_input)
+
+        # Display chatbot response
+        with st.chat_message("assistant"):
+            st.write(response.text)
 
