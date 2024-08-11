@@ -198,7 +198,10 @@ with selected_tab[0]:
 
             # Add chatbot response to chat history
             st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
-
+with selected_tab[1]:
+    # Display image gallery
+    st.header("Image Gallery")
+    
 # Display chat history
 for message in st.session_state.chat_history:
     if message["role"] == "user":
