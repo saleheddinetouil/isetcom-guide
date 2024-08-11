@@ -178,7 +178,7 @@ selected_tab = st.sidebar.tabs(tabs)
 # Display FAQ tab
 with selected_tab[0]:
     # Display predefined questions in the sidebar
-    st.sidebar.header("Questions Prêtes à l'Emploi")
+    st.sidebar.selected_tab[0].header("Questions Prêtes à l'Emploi")
     for question in questions:
         if st.sidebar.button(question):
             # Add question to chat history
