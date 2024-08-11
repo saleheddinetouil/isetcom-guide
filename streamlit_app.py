@@ -191,6 +191,9 @@ for question in questions:
         prompt = "\n".join(prompt)
         response = model.generate_content(prompt)
 
+        # Add user message to chat history
+        st.session_state.chat_history.append({"role": "user", "parts": [question]})
+
         # Add chatbot response to chat history
         st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
 
