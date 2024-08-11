@@ -1,7 +1,7 @@
 # 💬 Iset'Com Tunis Guide 
 A simple Streamlit app that shows how to build a chatbot using Gemini API.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chatbot-template.streamlit.app/)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://isetcom-guide.streamlit.app/)
 
 ### How to run it on your own machine
 
