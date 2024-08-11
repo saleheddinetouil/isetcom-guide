@@ -225,32 +225,32 @@ with guide:
                     if isinstance(part, str):
                         st.write(part)
 
-    # User input
-    user_input = st.chat_input("Ou posez votre propre question:")
-    if user_input:
-        # Add user message to chat history
-        st.session_state.chat_history.append({"show":True,
-    "role": "user", "parts": [user_input]})
+        # User input
+        user_input = st.chat_input("Ou posez votre propre question:")
+        if user_input:
+            # Add user message to chat history
+            st.session_state.chat_history.append({"show":True,
+        "role": "user", "parts": [user_input]})
 
-        # Generate chatbot response using Gemini
-        prompt = []
-        for message in st.session_state.chat_history:
-            for part in message["parts"]:
-                if isinstance(part, str):
-                    prompt.append(f"{message['role']}: {part}")
-                elif isinstance(part, genai.File):
-                    prompt.append(f"{message['role']}: <file:{part.uri}>")
-        prompt = "\n".join(prompt)
-        response = model.generate_content(prompt)
+            # Generate chatbot response using Gemini
+            prompt = []
+            for message in st.session_state.chat_history:
+                for part in message["parts"]:
+                    if isinstance(part, str):
+                        prompt.append(f"{message['role']}: {part}")
+                    elif isinstance(part, genai.File):
+                        prompt.append(f"{message['role']}: <file:{part.uri}>")
+            prompt = "\n".join(prompt)
+            response = model.generate_content(prompt)
 
-        # Add chatbot response to chat history
-        st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
+            # Add chatbot response to chat history
+            st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
 
-        # Display user input
-        with st.chat_message("user"):
-            st.write(user_input)
+            # Display user input
+            with st.chat_message("user"):
+                st.write(user_input)
 
-        # Display chatbot response
-        with st.chat_message("assistant"):
-            st.write(response.text)
+            # Display chatbot response
+            with st.chat_message("assistant"):
+                st.write(response.text)
 
