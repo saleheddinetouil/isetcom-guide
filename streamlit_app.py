@@ -72,15 +72,15 @@ A l’échelle internationale, de nombreux accords de coopération ont été sig
 
 # Predefined French questions
 questions = [
-    "Parlez de l'ISET'Com",
+    "Parlez-nous de l'ISET'Com?",
     "Quels sont les programmes d'ISET'Com?",
     "Quelles sont les spécialités offertes à l'ISET'Com?",
     "Quelle est la différence entre les specialités?",
-    "Où se trouve le campus de l'ISET'Com?",
+    "Quelles sont les certifications offertes à l'ISET'Com?",
     "Quels sont les débouchés professionnels après l'obtention du diplôme?",
     "Y a-t-il des clubs étudiants ou des activités parascolaires?",
     "L'ISET'Com propose-t-elle des programmes d'échange international?",
-    "Quels sont les scores des derniers étudiants admis à l'ISET'Com?" # New question
+    "Où se trouve le campus de l'ISET'Com?",
 ]
 
 
