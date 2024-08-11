@@ -187,27 +187,7 @@ with welcome:
 
 
 
-# Display predefined questions in the sidebar
-st.sidebar.header("Questions Prêtes à l'Emploi")
-for question in questions:
-    if st.sidebar.button(question):
-        # Add question to chat history
-        st.session_state.chat_history.append({"show":False,
-"role": "model", "parts": [question]})
 
-        # Generate chatbot response using Gemini
-        prompt = []
-        for message in st.session_state.chat_history:
-            for part in message["parts"]:
-                if isinstance(part, str):
-                    prompt.append(f"{message['role']}: {part}")
-                elif isinstance(part, genai.File):
-                    prompt.append(f"{message['role']}: <file:{part.uri}>")
-        prompt = "\n".join(prompt)
-        response = model.generate_content(prompt)
-
-        # Add chatbot response to chat history
-        st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
 
 with guide:
     # Display chat history
@@ -254,3 +234,35 @@ with guide:
         with st.chat_message("assistant"):
             st.write(response.text)
 
+
+with faq:
+    st.title("FAQ")
+    # Display predefined questions in the sidebar
+    st.header("Questions Prêtes à l'Emploi")
+    for question in questions:
+        if st.button(question):
+            # Add question to chat history
+            st.session_state.chat_history.append({"show":False,
+    "role": "model", "parts": [question]})
+
+            # Generate chatbot response using Gemini
+            prompt = []
+            for message in st.session_state.chat_history:
+                for part in message["parts"]:
+                    if isinstance(part, str):
+                        prompt.append(f"{message['role']}: {part}")
+                    elif isinstance(part, genai.File):
+                        prompt.append(f"{message['role']}: <file:{part.uri}>")
+            prompt = "\n".join(prompt)
+            response = model.generate_content(prompt)
+
+            # Add chatbot response to chat history
+            st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
+
+with gallery:
+    st.title("Galerie")
+    st.write("Gallery content goes here.")
+
+with resources:
+    st.title("Ressources")
+    st.write("Resources content goes here.")
