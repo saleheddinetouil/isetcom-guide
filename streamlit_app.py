@@ -176,14 +176,10 @@ welcome , guide, faq, gallery, resources = st.tabs(tabs)
 
 
 with welcome:
-    st.markdown(
-        """
-        <h2 style='text-align: center;'>Bienvenue sur l'ISET'Com Guide</h2>
-        <p style='text-align: center;'>
-        Cet outil permet de communiquer avec l'ISET'Com.
-        </p>
-        """
-    )
+    st.title("Bienvenue à l'ISET'Com!")
+    st.write("Bienvenue à l'ISET'Com, l'Institut Supérieur des Etudes Technologiques en Communication de Tunisie. Ici, vous pouvez poser des questions sur les programmes d'études, les cours, les débouchés professionnels, etc. et obtenir des réponses utiles de notre chatbot.")
+    st.write("Lorsque vous avez une question, cliquez sur le bouton correspondant. Nous vous recontacterons dans les plus brefs delés. Bonne leçon!")
+    
 
 
 
@@ -214,14 +210,7 @@ for question in questions:
         st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
 
 with guide:
-    st.markdown(
-        """
-        <h2 style='text-align: center;'>Guide</h2>
-        <p style='text-align: center;'>
-        Cet outil permet de communiquer avec l'ISET'Com.
-        </p>
-        """
-    )
+
 
     # Display chat history
     for message in st.session_state.chat_history:
