@@ -224,9 +224,11 @@ with guide:
                 for part in message["parts"]:
                     if isinstance(part, str):
                         st.write(part)
-
-    # User input
-    user_input = st.chat_input("Ou posez votre propre question:")
+                    elif isinstance(part, genai.File):
+                        st.write(f"File: {part.display_name}")
+    
+    
+    user_input = guide.chat_input("Ou posez votre propre question:")
     if user_input:
         # Add user message to chat history
         st.session_state.chat_history.append({"show":True,
