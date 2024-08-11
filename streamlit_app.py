@@ -171,17 +171,6 @@ st.sidebar.markdown(
 # display university image
 st.sidebar.image("https://scontent.ftun10-2.fna.fbcdn.net/v/t1.6435-9/117945334_1707831949375490_3804404197353496189_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=25d718&_nc_ohc=YtNKkPn_B6wQ7kNvgGrq6fC&_nc_ht=scontent.ftun10-2.fna&oh=00_AYCggODOaRxAkp0PIzFA-m-YF2GdA8LwDfA6gycmB2-tjw&oe=66DEFF72")
 
-# add pagination
-with st.sidebar:
-    pages = ["Accueil", "FAQ"]
-    page = st.radio("Page", pages, index=0)
-
-    if page == "Accueil":
-        st.write("Accueil")
-    elif page == "FAQ":
-        st.write("FAQ")
-    elif page == "Questions Prées à l'Emploi":
-        st.write("Questions Prées à l'Emploi")
 
 # Display predefined questions in the sidebar
 st.sidebar.header("Questions Prêtes à l'Emploi")
