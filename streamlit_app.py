@@ -238,23 +238,3 @@ with tabs[0] as tab1:
             # Display chatbot response
             with st.chat_message("assistant"):
                 st.write(response.text)
-
-    elif tab == "Gallery":
-        option = st.sidebar.selectbox(
-            'Choose valley to display:',
-            ('University Gallery', 'Resto Gallery', 'Clubs Gallery')
-        )
-
-        if option == 'University Gallery':
-            st.image("https://www.isetcom.tn/wp-content/uploads/2022/01/IMG_20220123_150741.jpg")
-
-        elif option == 'Resto Gallery':
-            st.image("https://www.isetcom.tn/wp-content/uploads/2022/01/IMG_20220123_150741.jpg")
-
-        elif option == 'Clubs Gallery':
-            st.image("https://www.isetcom.tn/wp-content/uploads/2022/01/IMG_20220123_150741.jpg")
-
-    elif tab == "Resources":
-        st.image("https://www.isetcom.tn/wp-content/uploads/2022/01/IMG_20220123_150741.jpg")
-
-
