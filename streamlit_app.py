@@ -171,45 +171,30 @@ st.sidebar.markdown(
 # display university image
 st.sidebar.image("https://scontent.ftun10-2.fna.fbcdn.net/v/t1.6435-9/117945334_1707831949375490_3804404197353496189_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=25d718&_nc_ohc=YtNKkPn_B6wQ7kNvgGrq6fC&_nc_ht=scontent.ftun10-2.fna&oh=00_AYCggODOaRxAkp0PIzFA-m-YF2GdA8LwDfA6gycmB2-tjw&oe=66DEFF72")
 
-tabs = ["Welcome","Guide","FAQ", "Gallery", "Resources"]
-welcome , guide, faq, gallery, resources = st.tabs(tabs)
 
+# Display predefined questions in the sidebar
+st.sidebar.header("Questions Prêtes à l'Emploi")
+for question in questions:
+    if st.sidebar.button(question):
+        # Add question to chat history
+        st.session_state.chat_history.append({"show":False,
+"role": "model", "parts": [question]})
 
-with welcome:
-    st.title("Bienvenue à l'ISET'Com!")
-    st.write("Bienvenue à l'ISET'Com, l'Institut Supérieur des Etudes Technologiques en Communication de Tunisie. Ici, vous pouvez poser des questions sur les programmes d'études, les cours, les débouchés professionnels, etc. et obtenir des réponses utiles de notre chatbot.")
-    st.write("Lorsque vous avez une question, cliquez sur le bouton correspondant. Nous vous recontacterons dans les plus brefs delés. Bonne leçon!")
-    st.image("https://scontent.ftun10-2.fna.fbcdn.net/v/t39.30808-6/302434038_508575411273418_2251733561090038505_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=4gforHG7mGkQ7kNvgGsinqm&_nc_ht=scontent.ftun10-2.fna&oh=00_AYCxy6GmrK71QyQTOxnbsTN3EGzOhal0d0WbrMn_m4SFWg&oe=66BEB03B")
+        # Generate chatbot response using Gemini
+        prompt = []
+        for message in st.session_state.chat_history:
+            for part in message["parts"]:
+                if isinstance(part, str):
+                    prompt.append(f"{message['role']}: {part}")
+                elif isinstance(part, genai.File):
+                    prompt.append(f"{message['role']}: <file:{part.uri}>")
+        prompt = "\n".join(prompt)
+        response = model.generate_content(prompt)
 
-
-
-
-
-
-
-
+        # Add chatbot response to chat history
+        st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
 
 with guide:
-    
-    for question in questions:
-        if st.button(question):
-            # Add question to chat history
-            st.session_state.chat_history.append({"show":False,
-    "role": "model", "parts": [question]})
-
-            # Generate chatbot response using Gemini
-            prompt = []
-            for message in st.session_state.chat_history:
-                for part in message["parts"]:
-                    if isinstance(part, str):
-                        prompt.append(f"{message['role']}: {part}")
-                    elif isinstance(part, genai.File):
-                        prompt.append(f"{message['role']}: <file:{part.uri}>")
-            prompt = "\n".join(prompt)
-            response = model.generate_content(prompt)
-
-            # Add chatbot response to chat history
-            st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
     # Display chat history
     for message in st.session_state.chat_history:
         if message["role"] == "user":
@@ -224,11 +209,9 @@ with guide:
                 for part in message["parts"]:
                     if isinstance(part, str):
                         st.write(part)
-                    elif isinstance(part, genai.File):
-                        st.write(f"File: {part.display_name}")
-    
-    
-    user_input = guide.chat_input("Ou posez votre propre question:")
+
+    # User input
+    user_input = st.chat_input("Ou posez votre propre question:")
     if user_input:
         # Add user message to chat history
         st.session_state.chat_history.append({"show":True,
@@ -256,12 +239,3 @@ with guide:
         with st.chat_message("assistant"):
             st.write(response.text)
 
-
-
-with gallery:
-    st.title("Galerie")
-    st.write("Gallery content goes here.")
-
-with resources:
-    st.title("Ressources")
-    st.write("Resources content goes here.")
