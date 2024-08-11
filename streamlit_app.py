@@ -172,8 +172,7 @@ st.sidebar.markdown(
 st.sidebar.image("https://scontent.ftun10-2.fna.fbcdn.net/v/t1.6435-9/117945334_1707831949375490_3804404197353496189_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=25d718&_nc_ohc=YtNKkPn_B6wQ7kNvgGrq6fC&_nc_ht=scontent.ftun10-2.fna&oh=00_AYCggODOaRxAkp0PIzFA-m-YF2GdA8LwDfA6gycmB2-tjw&oe=66DEFF72")
 
 tabs = st.tabs(["Chat", "Gallery","Resources"])
-for tab in tabs:
-    if tab == "Chat":
+with tabs[0] as tab1:
         # Display predefined questions in the sidebar
         st.sidebar.header("Questions Prêtes à l'Emploi")
         for question in questions:
@@ -202,14 +201,14 @@ for tab in tabs:
                 with st.chat_message("user"):
                     for part in message["parts"]:
                         if isinstance(part, str):
-                            st.write(part)
+                            tab1.write(part)
                         elif isinstance(part, genai.File):
-                            st.write(f"File: {part.display_name}")
+                            tab1.write(f"File: {part.display_name}")
             elif message["role"] == "assistant":
                 with st.chat_message("assistant"):
                     for part in message["parts"]:
                         if isinstance(part, str):
-                            st.write(part)
+                            tab1.write(part)
 
         # User input
         user_input = st.chat_input("Ou posez votre propre question:")
