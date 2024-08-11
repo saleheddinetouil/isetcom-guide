@@ -171,37 +171,34 @@ st.sidebar.markdown(
 # display university image
 st.sidebar.image("https://scontent.ftun10-2.fna.fbcdn.net/v/t1.6435-9/117945334_1707831949375490_3804404197353496189_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=25d718&_nc_ohc=YtNKkPn_B6wQ7kNvgGrq6fC&_nc_ht=scontent.ftun10-2.fna&oh=00_AYCggODOaRxAkp0PIzFA-m-YF2GdA8LwDfA6gycmB2-tjw&oe=66DEFF72")
 
-tabs = ["FAQ", "Gallery", "Resources"]
-selected_tab = st.sidebar.tabs(tabs)
+tabs = ["Welcome","Guide","FAQ", "Gallery", "Resources"]
+selected_tab = st.tabs(tabs)
 
 
-# Display FAQ tab
-with selected_tab[0]:
-    # Display predefined questions in the sidebar
-    st.sidebar.header("Questions Prêtes à l'Emploi")
-    for question in questions:
-        if st.sidebar.button(question):
-            # Add question to chat history
-            st.session_state.chat_history.append({"show":False,
-    "role": "model", "parts": [question]})
 
-            # Generate chatbot response using Gemini
-            prompt = []
-            for message in st.session_state.chat_history:
-                for part in message["parts"]:
-                    if isinstance(part, str):
-                        prompt.append(f"{message['role']}: {part}")
-                    elif isinstance(part, genai.File):
-                        prompt.append(f"{message['role']}: <file:{part.uri}>")
-            prompt = "\n".join(prompt)
-            response = model.generate_content(prompt)
 
-            # Add chatbot response to chat history
-            st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
-with selected_tab[1]:
-    # Display image gallery
-    st.header("Image Gallery")
-    
+# Display predefined questions in the sidebar
+st.sidebar.header("Questions Prêtes à l'Emploi")
+for question in questions:
+    if st.sidebar.button(question):
+        # Add question to chat history
+        st.session_state.chat_history.append({"show":False,
+"role": "model", "parts": [question]})
+
+        # Generate chatbot response using Gemini
+        prompt = []
+        for message in st.session_state.chat_history:
+            for part in message["parts"]:
+                if isinstance(part, str):
+                    prompt.append(f"{message['role']}: {part}")
+                elif isinstance(part, genai.File):
+                    prompt.append(f"{message['role']}: <file:{part.uri}>")
+        prompt = "\n".join(prompt)
+        response = model.generate_content(prompt)
+
+        # Add chatbot response to chat history
+        st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
+
 # Display chat history
 for message in st.session_state.chat_history:
     if message["role"] == "user":
