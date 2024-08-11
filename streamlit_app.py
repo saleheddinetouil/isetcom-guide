@@ -211,7 +211,7 @@ with tabs[0] as tab1:
                             tab1.write(part)
 
         # User input
-        user_input = st.chat_input("Ou posez votre propre question:")
+        user_input = tab1.chat_input("Ou posez votre propre question:")
         if user_input:
             # Add user message to chat history
             st.session_state.chat_history.append({"show":True,
@@ -232,9 +232,9 @@ with tabs[0] as tab1:
             st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
 
             # Display user input
-            with st.chat_message("user"):
-                st.write(user_input)
+            with tab1.chat_message("user"):
+                tab1.write(user_input)
 
             # Display chatbot response
-            with st.chat_message("assistant"):
-                st.write(response.text)
+            with tab1.chat_message("assistant"):
+                tab1.write(response.text)
