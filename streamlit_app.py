@@ -45,7 +45,7 @@ questions = [
 
 # --- Tab Management ---
 tabs = ["Guide Chatbot", "Gallery"]  # Add more tabs as needed
-selected_tab = st.sidebar.tabs(tabs)
+selected_tab = st.tabs(tabs)
 
 # --- Content and Sidebar based on Tab ---
 if selected_tab == "Guide Chatbot":
