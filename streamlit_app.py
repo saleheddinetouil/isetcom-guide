@@ -35,10 +35,16 @@ model = genai.GenerativeModel(
     Les frais de scolarite sont fixés par l'ISET'Com de (70 - 82dt) par an.
     Les Clubs de l'ISET'Com sont :
     * Club Radio
-    * Club Engineers Spark 
+    * Club Engineers Spark  Un club qui a le but de former les étudiant pour les familiariser avec les nouvelles technologies .
     * Club CPU 
+    * Club Enactus Une communauté d’étudiants qui utilise l’entrepreneuriat pour améliorer les vies.
+    * Club Microsoft Dev Le Club a pour but de développer des solutions mobile et des applications.
     * Club IEEE
-    * Club Tunivisions
+    * Club Tunivisions Un club qui vise à renforcer les "Soft Skills" des etudiants.
+    
+    Les Clubs à l'Iset'COM sont créés à la demande des étudiants, ils touchent les aspects
+culturels, sportifs et sociaux .
+    
     Programme de double diplome 1 europeen et 1 tunisien en collaboration avec l'universite de Limoges en france.
      Ce programme pour les etudiants de 3eme annee et l'admission de ce programme se fait en 2eme sur dossier.
     A propos de liset com
@@ -51,6 +57,16 @@ Réaliser des actions de partenariat avec les entreprises et les universités na
  C’est en partant des besoins des entreprises notamment dans les secteurs des Télécommunications et des Technologies de l’Information & de la Communication que ISET’COM a défini ses filières de formation. Par leur complémentarité et diversité, les filières de ISET’COM offrent davantage de choix et d’opportunité aux jeunes qui ambitionnent d’obtenir des diplômes de haut niveau et qui leur permettent de meilleures perspectives d’emploi. Par ailleurs, les Lauréats de l’ISET’COM ont plusieurs possibilités de poursuivre leurs études :
 A l’échelle nationale, en intégrant les écoles d’Ingénieurs ou d’autres établissements universitaires
 A l’échelle internationale, de nombreux accords de coopération ont été signés avec des institutions d’enseignement et de formation (France, Maroc, Canada…), avec une co-Diplômation avec l’Université de Limoges. 
+    
+   L'Institut supérieur des études technologiques en communication de Tunis (ISET'com) propose en coopération avec l’Université de Limoges, une double diplômation. Une première dans le régime «LMD» en Tunisie. Le système de double diplômation permet à l'étudiant d'obtenir une licence en science et technologies de l'information et de la communication filière «RST et SR» de l’ISET'com et une maîtrise en sciences et techniques d'ingénieur de la Faculté des sciences et techniques de l'Université Limoges. Ayant accompli deux années d’études en Tunisie, les étudiants de l’l’ISET’com peuvent, à l’issue de cette convention, poursuivre la 3e année d'études à la faculté de Limoges et vice-versa pour les étudiants de la faculté française. Les étudiants des écoles peuvent, par conséquent, obtenir la licence des deux établissements.
+
+  - Les Certifications : 
+  * Cisco Certified Network Associate (CCNA)
+  * Huawei AI, Huawei Cloud Computing, Huawei IOT
+  * Une Certification en orthographe francais.
+  * Test of English for International Communication.
+
+    
     """
 )
 
