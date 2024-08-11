@@ -171,70 +171,91 @@ st.sidebar.markdown(
 # display university image
 st.sidebar.image("https://scontent.ftun10-2.fna.fbcdn.net/v/t1.6435-9/117945334_1707831949375490_3804404197353496189_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=25d718&_nc_ohc=YtNKkPn_B6wQ7kNvgGrq6fC&_nc_ht=scontent.ftun10-2.fna&oh=00_AYCggODOaRxAkp0PIzFA-m-YF2GdA8LwDfA6gycmB2-tjw&oe=66DEFF72")
 
+tabs = st.tabs(["Chat", "Gallery","Resources"])
+for tab in tabs:
+    if tab == "Chat":
+        # Display predefined questions in the sidebar
+        st.sidebar.header("Questions Prêtes à l'Emploi")
+        for question in questions:
+            if st.sidebar.button(question):
+                # Add question to chat history
+                st.session_state.chat_history.append({"show":False,
+        "role": "model", "parts": [question]})
 
-# Display predefined questions in the sidebar
-st.sidebar.header("Questions Prêtes à l'Emploi")
-for question in questions:
-    if st.sidebar.button(question):
-        # Add question to chat history
-        st.session_state.chat_history.append({"show":False,
-"role": "model", "parts": [question]})
+                # Generate chatbot response using Gemini
+                prompt = []
+                for message in st.session_state.chat_history:
+                    for part in message["parts"]:
+                        if isinstance(part, str):
+                            prompt.append(f"{message['role']}: {part}")
+                        elif isinstance(part, genai.File):
+                            prompt.append(f"{message['role']}: <file:{part.uri}>")
+                prompt = "\n".join(prompt)
+                response = model.generate_content(prompt)
 
-        # Generate chatbot response using Gemini
-        prompt = []
+                # Add chatbot response to chat history
+                st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
+
+        # Display chat history
         for message in st.session_state.chat_history:
-            for part in message["parts"]:
-                if isinstance(part, str):
-                    prompt.append(f"{message['role']}: {part}")
-                elif isinstance(part, genai.File):
-                    prompt.append(f"{message['role']}: <file:{part.uri}>")
-        prompt = "\n".join(prompt)
-        response = model.generate_content(prompt)
+            if message["role"] == "user":
+                with st.chat_message("user"):
+                    for part in message["parts"]:
+                        if isinstance(part, str):
+                            st.write(part)
+                        elif isinstance(part, genai.File):
+                            st.write(f"File: {part.display_name}")
+            elif message["role"] == "assistant":
+                with st.chat_message("assistant"):
+                    for part in message["parts"]:
+                        if isinstance(part, str):
+                            st.write(part)
 
-        # Add chatbot response to chat history
-        st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
+        # User input
+        user_input = st.chat_input("Ou posez votre propre question:")
+        if user_input:
+            # Add user message to chat history
+            st.session_state.chat_history.append({"show":True,
+        "role": "user", "parts": [user_input]})
 
-# Display chat history
-for message in st.session_state.chat_history:
-    if message["role"] == "user":
-        with st.chat_message("user"):
-            for part in message["parts"]:
-                if isinstance(part, str):
-                    st.write(part)
-                elif isinstance(part, genai.File):
-                    st.write(f"File: {part.display_name}")
-    elif message["role"] == "assistant":
-        with st.chat_message("assistant"):
-            for part in message["parts"]:
-                if isinstance(part, str):
-                    st.write(part)
+            # Generate chatbot response using Gemini
+            prompt = []
+            for message in st.session_state.chat_history:
+                for part in message["parts"]:
+                    if isinstance(part, str):
+                        prompt.append(f"{message['role']}: {part}")
+                    elif isinstance(part, genai.File):
+                        prompt.append(f"{message['role']}: <file:{part.uri}>")
+            prompt = "\n".join(prompt)
+            response = model.generate_content(prompt)
 
-# User input
-user_input = st.chat_input("Ou posez votre propre question:")
-if user_input:
-    # Add user message to chat history
-    st.session_state.chat_history.append({"show":True,
-"role": "user", "parts": [user_input]})
+            # Add chatbot response to chat history
+            st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
 
-    # Generate chatbot response using Gemini
-    prompt = []
-    for message in st.session_state.chat_history:
-        for part in message["parts"]:
-            if isinstance(part, str):
-                prompt.append(f"{message['role']}: {part}")
-            elif isinstance(part, genai.File):
-                prompt.append(f"{message['role']}: <file:{part.uri}>")
-    prompt = "\n".join(prompt)
-    response = model.generate_content(prompt)
+            # Display user input
+            with st.chat_message("user"):
+                st.write(user_input)
 
-    # Add chatbot response to chat history
-    st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
+            # Display chatbot response
+            with st.chat_message("assistant"):
+                st.write(response.text)
 
-    # Display user input
-    with st.chat_message("user"):
-        st.write(user_input)
+    elif tab == "Gallery":
+        option = st.sidebar.selectbox(
+            'Choose valley to display:',
+            ('University Gallery', 'Resto Gallery', 'Clubs Gallery')
+        )
 
-    # Display chatbot response
-    with st.chat_message("assistant"):
-        st.write(response.text)
+        if option == 'University Gallery':
+            st.image("https://www.isetcom.tn/wp-content/uploads/2022/01/IMG_20220123_150741.jpg")
+
+        elif option == 'Resto Gallery':
+            st.image("https://www.isetcom.tn/wp-content/uploads/2022/01/IMG_20220123_150741.jpg")
+
+        elif option == 'Clubs Gallery':
+            st.image("https://www.isetcom.tn/wp-content/uploads/2022/01/IMG_20220123_150741.jpg")
+
+    elif tab == "Resources":
+        st.image("https://www.isetcom.tn/wp-content/uploads/2022/01/IMG_20220123_150741.jpg")
+
 
