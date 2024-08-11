@@ -179,7 +179,7 @@ with welcome:
     st.title("Bienvenue à l'ISET'Com!")
     st.write("Bienvenue à l'ISET'Com, l'Institut Supérieur des Etudes Technologiques en Communication de Tunisie. Ici, vous pouvez poser des questions sur les programmes d'études, les cours, les débouchés professionnels, etc. et obtenir des réponses utiles de notre chatbot.")
     st.write("Lorsque vous avez une question, cliquez sur le bouton correspondant. Nous vous recontacterons dans les plus brefs delés. Bonne leçon!")
-    
+    st.image("https://scontent.ftun10-2.fna.fbcdn.net/v/t39.30808-6/302434038_508575411273418_2251733561090038505_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=4gforHG7mGkQ7kNvgGsinqm&_nc_ht=scontent.ftun10-2.fna&oh=00_AYCxy6GmrK71QyQTOxnbsTN3EGzOhal0d0WbrMn_m4SFWg&oe=66BEB03B")
 
 
 
@@ -210,8 +210,6 @@ for question in questions:
         st.session_state.chat_history.append({"role": "assistant", "parts": [response.text]})
 
 with guide:
-
-
     # Display chat history
     for message in st.session_state.chat_history:
         if message["role"] == "user":
